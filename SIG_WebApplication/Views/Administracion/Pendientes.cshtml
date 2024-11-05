@@ -1,0 +1,125 @@
+﻿
+@{
+    ViewBag.Title = "Pendientes";
+    Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
+}
+    <style>
+        .card .card-header {
+            padding: 15px 15px 0;
+            background-color: #FFFFFF;
+            border-bottom: none !important;
+        }
+
+        .card .card-body {
+            padding: 15px 15px 10px 15px;
+        }
+
+        .card .card-footer {
+            padding-top: 0;
+            background-color: transparent;
+            line-height: 30px;
+            border-top: none !important;
+            font-size: 14px;
+        }
+
+            .card .card-footer div {
+                display: inline-block;
+            }
+
+        .card .stats {
+            color: #a9a9a9;
+        }
+
+        .fa {
+            width: 18px;
+            text-align: center;
+        }
+
+        .card .card-footer {
+            padding-top: 0;
+            background-color: transparent;
+            line-height: 30px;
+            border-top: none !important;
+            font-size: 14px;
+        }
+
+        .card .card-category, .card label {
+            font-size: 14px;
+            font-weight: 400;
+            color: #9A9A9A;
+            margin-bottom: 0px;
+        }
+    </style>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="card strpied-tabled-with-hover">
+                        <div class="card-header ">
+                            <h4 class="card-title">Inmueble pendiente por publicación </h4>
+                            <p class="card-category">Estatus del inmueble: revisión </p>
+                        </div>
+                        <div class="content">
+                            <div class="container-fluid">
+
+                                <div class="card-body table-full-width table-responsive">
+                                    <table class="table table-hover table-striped" id="TableListInmuebles">
+                                        <thead>
+                                        <th>Fecha registro</th>
+                                        <th>Titulo </th>
+                                        <th>Descripción </th>
+                                        <th>Categoría</th>
+                                        <th></th>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                foreach (var cat in ViewBag.inmueble)
+                                                {
+                                                    <tr>
+                                                        <td>@cat.FechaRegistro</td>
+                                                        <td>@cat.Titulo</td>
+                                                        <td>@cat.Descripcion</td>
+                                                        <td>@cat.TipoCategoria</td>
+                                                        <td><button type="button" class="btn btn-warning" onclick="EnviarAtencion(@cat.Id)">Atender </button></td>
+                                                    </tr>
+                                                }
+                                            }
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+    function EnviarAtencion(num)
+    {
+        var obj = {};
+        obj['Id'] = num;
+        var jsonObject = {
+            "Inmueble": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("InmuebleContultaId", "Home")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                window.location.href = '@Url.Action("EvaluarInmueble", "Administracion")?Inm=' + response + ' ';
+            }
+        });
+    }
+</script>

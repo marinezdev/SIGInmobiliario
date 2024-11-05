@@ -1,0 +1,761 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdministrativo.cshtml";
+}
+<style>
+    .card .card-header {
+    padding: 15px 15px 0;
+    background-color: #FFFFFF;
+    border-bottom: none !important;
+}
+    .card .card-body {
+    padding: 15px 15px 10px 15px;
+}
+
+    .card .card-footer {
+    padding-top: 0;
+    background-color: transparent;
+    line-height: 30px;
+    border-top: none !important;
+    font-size: 14px;
+}
+    .card .card-footer div {
+    display: inline-block;
+}
+.card .stats {
+    color: #a9a9a9;
+}
+.fa {
+    width: 18px;
+    text-align: center;
+}
+.card .card-footer {
+    padding-top: 0;
+    background-color: transparent;
+    line-height: 30px;
+    border-top: none !important;
+    font-size: 14px;
+}
+.card .card-category, .card label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #9A9A9A;
+    margin-bottom: 0px;
+}
+</style>
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card ">
+                    <div class="card-header ">
+                        <h4 class="card-title">Estatus inmuebles  </h4>
+                        <p class="card-category">Total, inmuebles por estatus </p>
+                    </div>
+                    <div class="card-body ">
+                        <canvas id="densityChart" width="600" height="350"></canvas>
+                    </div>
+                    <div class="card-footer text-center">
+                        <hr>
+                        <div class="stats">
+                            <i class="fa fa-clock-o"></i> Actualizado
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card ">
+                    <div class="card-header ">
+                        <h4 class="card-title">Categorías más vistas  </h4>
+                        <p class="card-category">Total, inmuebles por categorías más vitas </p>
+                    </div>
+                    <div class="card-body ">
+                        <canvas id="densityChart2" width="600" height="350"></canvas>
+                    </div>
+                    <div class="card-footer text-center">
+                        <hr>
+                        <div class="stats">
+                            <i class="fa fa-clock-o"></i> Actualizado
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card ">
+                    <div class="card-header ">
+                        <h4 class="card-title">Inmuebles por categoría  </h4>
+                        <p class="card-category">
+                            Total, de inmuebles registrados por categoría
+                        </p>
+                    </div>
+                    <div class="card-body ">
+                        <canvas id="densityChart3" width="600" height="350"></canvas>
+                    </div>
+                    <div class="card-footer text-center">
+                        <hr>
+                        <div class="stats">
+                            <i class="fa fa-clock-o"></i> Actualizado
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card ">
+                    <div class="card-header ">
+                        <h4 class="card-title">Inmueble mensajes.  </h4>
+                        <p class="card-category">
+                            Total, de mensajes enviados por categoría.
+                        </p>
+                    </div>
+                    <div class="card-body ">
+                        <canvas id="densityChart4" width="600" height="350"></canvas>
+                    </div>
+                    <div class="card-footer text-center">
+                        <hr>
+                        <div class="stats">
+                            <i class="fa fa-clock-o"></i> Actualizado
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card strpied-tabled-with-hover">
+                    <div class="card-header ">
+                        <h4 class="card-title">Inmueble pendiente por publicación </h4>
+                        <p class="card-category">Estatus del inmueble: revisión </p>
+                    </div>
+                    <div class="content">
+                        <div class="container-fluid">
+
+                            <div class="card-body table-full-width table-responsive">
+                                <table class="table table-hover table-striped" id="TableListInmuebles">
+                                    <thead>
+                                    <th>Fecha registro</th>
+                                    <th>Titulo </th>
+                                    <th>Descripción </th>
+                                    <th>Categoría</th>
+                                    <th></th>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var cat in ViewBag.inmueble)
+                                            {
+                                                <tr>
+                                                    <td>@cat.FechaRegistro</td>
+                                                    <td>@cat.Titulo</td>
+                                                    <td>@cat.Descripcion</td>
+                                                    <td>@cat.TipoCategoria</td>
+                                                    <td><button type="button" class="btn btn-warning" onclick="EnviarAtencion(@cat.Id)">Atender </button></td>
+                                                </tr>
+                                            }
+                                        }
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="~/vendor/chart.js/chart.min.js"></script>
+<script>
+
+    function EnviarAtencion(num)
+    {
+        var obj = {};
+        obj['Id'] = num;
+        var jsonObject = {
+            "Inmueble": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("InmuebleContultaId", "Home")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                window.location.href = '@Url.Action("EvaluarInmueble", "Administracion")?Inm=' + response + ' ';
+            }
+        });
+    }
+    $(document).ready(function () {
+    
+        var densityCanvas = document.getElementById("densityChart");
+
+        Chart.defaults.global.defaultFontFamily = "Arial, sans-serifapple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif";
+        Chart.defaults.global.defaultFontSize = 14;
+
+        var densityData = {
+            label: 'Estatus',
+
+            options: {
+                legend: {
+                    labels: {
+                        // This more specific font property overrides the global property
+                        //fontColor: 'black',
+                        defaultFontFamily: 'Arial, sans-serifapple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+                        fontColor: 'rgb(154, 154, 154)',
+                        usePointStyle: true,
+                    }
+                }
+            },
+
+
+            data: [
+                @foreach (var Com in ViewBag.Estatus)
+                {
+                    @Html.Raw(@Com.Total)
+                    @Html.Raw(",")
+                }
+            ],
+            backgroundColor: [
+                'rgba(67, 206, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(25, 91, 157, 0.9)',
+
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(67, 206, 162, 0.9)',
+
+            ],
+            borderColor: [
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(25, 91, 157, 0.9)',
+
+
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+
+            ],
+            borderWidth: 1,
+            hoverBorderWidth: 0,
+            hoverBackgroundColor: [
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+            ],
+        };
+
+        var chartOptions = {
+            scales: {
+                yAxes: [{
+                    barPercentage: 0.5
+                }]
+            },
+            elements: {
+                rectangle: {
+                    borderSkipped: 'left',
+                }
+            }
+        };
+
+        var barChart = new Chart(densityCanvas, {
+            type: 'bar',
+            data: {
+                labels: [
+                @foreach (var Com in ViewBag.Estatus)
+                {
+                    @Html.Raw("'")
+                    @Html.Raw(@Com.Nombre)
+                    @Html.Raw("'")
+                    @Html.Raw(",")
+                }
+                ],
+                datasets: [densityData],
+            },
+            options: chartOptions
+        });
+    });
+    $(document).ready(function () {
+    
+        var densityCanvas = document.getElementById("densityChart2");
+
+        Chart.defaults.global.defaultFontFamily = "Arial, sans-serifapple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif";
+        Chart.defaults.global.defaultFontSize = 14;
+
+        var densityData = {
+            label: 'Visualizaciones',
+
+            options: {
+                legend: {
+                    labels: {
+                        // This more specific font property overrides the global property
+                        //fontColor: 'black',
+                        defaultFontFamily: 'Arial, sans-serifapple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+                        fontColor: 'rgb(154, 154, 154)',
+                        usePointStyle: true,
+                    }
+                }
+            },
+
+
+            data: [
+                @foreach (var Com in ViewBag.InmueblesVistos)
+                {
+                    @Html.Raw(@Com.Total)
+                    @Html.Raw(",")
+                }
+            ],
+            backgroundColor: [
+                'rgba(67, 206, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(25, 91, 157, 0.9)',
+
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(67, 206, 162, 0.9)',
+
+            ],
+            borderColor: [
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(25, 91, 157, 0.9)',
+
+
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+
+            ],
+            borderWidth: 1,
+            hoverBorderWidth: 0,
+            hoverBackgroundColor: [
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+            ],
+        };
+
+        var chartOptions = {
+            scales: {
+                yAxes: [{
+                    barPercentage: 0.5
+                }]
+            },
+            elements: {
+                rectangle: {
+                    borderSkipped: 'left',
+                }
+            }
+        };
+
+        var barChart = new Chart(densityCanvas, {
+            type: 'bar',
+            data: {
+                labels: [
+                @foreach (var Com in ViewBag.InmueblesVistos)
+                {
+                    @Html.Raw("'")
+                    @Html.Raw(@Com.Nombre)
+                    @Html.Raw("'")
+                    @Html.Raw(",")
+                }
+                ],
+                datasets: [densityData],
+            },
+            options: chartOptions
+        });
+    });
+    $(document).ready(function () {
+    
+        var densityCanvas = document.getElementById("densityChart3");
+
+        Chart.defaults.global.defaultFontFamily = "Arial, sans-serifapple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif";
+        Chart.defaults.global.defaultFontSize = 14;
+
+        var densityData = {
+            label: 'Total',
+
+            options: {
+                legend: {
+                    labels: {
+                        // This more specific font property overrides the global property
+                        //fontColor: 'black',
+                        defaultFontFamily: 'Arial, sans-serifapple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+                        fontColor: 'rgb(154, 154, 154)',
+                        usePointStyle: true,
+                    }
+                }
+            },
+
+
+            data: [
+                @foreach (var Com in ViewBag.InmueblesCategorias)
+                {
+                    @Html.Raw(@Com.Total)
+                    @Html.Raw(",")
+                }
+            ],
+            backgroundColor: [
+                'rgba(67, 206, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(25, 91, 157, 0.9)',
+
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(67, 206, 162, 0.9)',
+
+            ],
+            borderColor: [
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(25, 91, 157, 0.9)',
+
+
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+
+            ],
+            borderWidth: 1,
+            hoverBorderWidth: 0,
+            hoverBackgroundColor: [
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+            ],
+        };
+
+        var chartOptions = {
+            scales: {
+                yAxes: [{
+                    barPercentage: 0.5
+                }]
+            },
+            elements: {
+                rectangle: {
+                    borderSkipped: 'left',
+                }
+            }
+        };
+
+        var barChart = new Chart(densityCanvas, {
+            type: 'bar',
+            data: {
+                labels: [
+                @foreach (var Com in ViewBag.InmueblesCategorias)
+                {
+                    @Html.Raw("'")
+                    @Html.Raw(@Com.Nombre)
+                    @Html.Raw("'")
+                    @Html.Raw(",")
+                }
+                ],
+                datasets: [densityData],
+            },
+            options: chartOptions
+        });
+    });
+    $(document).ready(function () {
+    
+        var densityCanvas = document.getElementById("densityChart4");
+
+        Chart.defaults.global.defaultFontFamily = "Arial, sans-serifapple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif";
+        Chart.defaults.global.defaultFontSize = 14;
+
+        var densityData = {
+            label: 'Total',
+
+            options: {
+                legend: {
+                    labels: {
+                        // This more specific font property overrides the global property
+                        //fontColor: 'black',
+                        defaultFontFamily: 'Arial, sans-serifapple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif',
+                        fontColor: 'rgb(154, 154, 154)',
+                        usePointStyle: true,
+                    }
+                }
+            },
+
+
+            data: [
+                @foreach (var Com in ViewBag.InmueblesMensajes)
+                {
+                    @Html.Raw(@Com.Total)
+                    @Html.Raw(",")
+                }
+            ],
+            backgroundColor: [
+                'rgba(67, 206, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(25, 91, 157, 0.9)',
+
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(67, 206, 162, 0.9)',
+
+            ],
+            borderColor: [
+                'rgba(63, 194, 162, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(25, 91, 157, 0.9)',
+
+
+                'rgba(26, 95, 157, 0.9)',
+                'rgba(28, 101, 158, 0.9)',
+                'rgba(34, 116, 158, 0.9)',
+                'rgba(37, 126, 159, 0.9)',
+                'rgba(44, 145, 159, 0.9)',
+                'rgba(49, 158, 160, 0.9)',
+                'rgba(50, 160, 160, 0.9)',
+                'rgba(54, 169, 161, 0.9)',
+                'rgba(63, 195, 162, 0.9)',
+                'rgba(63, 194, 162, 0.9)',
+
+            ],
+            borderWidth: 1,
+            hoverBorderWidth: 0,
+            hoverBackgroundColor: [
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+               'rgba(0, 69, 69, 1)',
+            ],
+        };
+
+        var chartOptions = {
+            scales: {
+                yAxes: [{
+                    barPercentage: 0.5
+                }]
+            },
+            elements: {
+                rectangle: {
+                    borderSkipped: 'left',
+                }
+            }
+        };
+
+        var barChart = new Chart(densityCanvas, {
+            type: 'pie',
+            data: {
+                labels: [
+                @foreach (var Com in ViewBag.InmueblesMensajes)
+                {
+                    @Html.Raw("'")
+                    @Html.Raw(@Com.Nombre)
+                    @Html.Raw("'")
+                    @Html.Raw(",")
+                }
+                ],
+                datasets: [densityData],
+            },
+            options: chartOptions
+        });
+    });
+
+</script>

@@ -1,0 +1,554 @@
+﻿
+@{
+    ViewBag.Title = "Categorias";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Title page -->
+<section class="bg-img1 txt-center p-lr-15 p-tb-42" style="background-image: url('../../images/Headers/slider1.jpg'); text-align:center;">
+    <div class=" h-full p-t-0 p-b-0 respon5" style="text-align:center;">
+        <div class="layer-slick1 animated " style="text-align: center;">
+            <br /><br /><br /><br /><br />
+            <h2 class="ltext-201 cl2 p-t-19 p-b-43 respon1 text-center" style="font-size: 30px; width:100%; text-align:center;font-family: " Proxima Nova",-apple-system,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;">
+                &nbsp;Categorías   <span style="color: #dc8505"> </span>&nbsp;
+            </h2>
+            <br /><br /><br />
+        </div>
+    </div>
+</section>
+
+<!-- Product -->
+<section class="sec-product bg0 p-t-0 p-b-50">
+
+    <div class="container">
+        <div class="p-b-32">
+            <br />
+            <h1>
+                <strong>Elige una de nuestras categorias </strong>
+            </h1>
+            <p>Da un clic sobre el botón <strong> Mostrar Inmuebles</strong>, para entrar al detalle Y encontraras todos los inmuebles relacionados que se encuentran disponibles.</p>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40  p-lr-15-sm">
+                    <img class="card-img-top" src="~/images/Categorias/000000000006.jpg" />
+                    <div class="card-body ">
+                        <h5 class="card-title text-center"><strong>Oficinas</strong></h5>
+                    </div>
+                    <div class="alternative-cta-container">
+                        <button class="col-md-12" onclick="Consulta('Oficinas')">Mostrar Inmuebles</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40  p-lr-15-sm">
+                    <img class="card-img-top" src="~/images/Categorias/000000000133.jpg" />
+                    <div class="card-body ">
+                        <h5 class="card-title text-center"><strong>Departamentos</strong></h5>
+                    </div>
+                    <div class="alternative-cta-container">
+                        <button class="col-md-12" onclick="Consulta('Departamentos')">Mostrar Inmuebles</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40  p-lr-15-sm">
+                    <img class="card-img-top" src="~/images/Categorias/000000000077.jpg" />
+                    <div class="card-body ">
+                        <h5 class="card-title text-center"><strong>Casas</strong></h5>
+                    </div>
+                    <div class="alternative-cta-container">
+                        <button class="col-md-12" onclick="Consulta('Casas')">Mostrar Inmuebles</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40  p-lr-15-sm">
+                    <img class="card-img-top" src="~/images/Categorias/000000000043.jpg" />
+                    <div class="card-body ">
+                        <h5 class="card-title text-center"><strong>Ranchos</strong></h5>
+                    </div>
+                    <div class="alternative-cta-container">
+                        <button class="col-md-12" onclick="Consulta('Ranchos')">Mostrar Inmuebles</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40  p-lr-15-sm">
+                    <img class="card-img-top" src="~/images/Categorias/000000000119.jpeg" />
+                    <div class="card-body ">
+                        <h5 class="card-title text-center"><strong>Quirófano</strong></h5>
+                    </div>
+                    <div class="alternative-cta-container">
+                        <button class="col-md-12" onclick="Consulta('Quirofano')">Mostrar Inmuebles</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="bor10 p-lr-40 p-t-30 p-b-40  p-lr-15-sm">
+                    <img class="card-img-top" src="~/images/Categorias/000000000114.jpeg" />
+                    <div class="card-body ">
+                        <h5 class="card-title text-center"><strong>Consultorio</strong></h5>
+                    </div>
+                    <div class="alternative-cta-container">
+                        <button class="col-md-12" onclick="Consulta('Consultorio')">Mostrar Inmuebles</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <hr />
+    </div>
+</section>
+
+<!-- Product -->
+@*<section class="bg0 p-t-23 p-b-130">
+    <div class="container">
+        <div class="p-b-10">
+            <h1>
+                <strong>Categorías </strong>
+            </h1>
+            <div id="MuCategoria">
+
+            </div>
+        </div>
+
+        <div class="flex-w flex-sb-m p-b-52">
+            <div id="Cat_Menu" class="flex-w flex-l-m filter-tope-group m-tb-10">
+
+            </div>
+
+        </div>
+
+        <div id="ContenidoDt" class="row @*isotope-grid">
+
+
+        </div>
+
+    </div>
+</section>*@
+
+<br />
+<br />
+<div class="bg6 flex-c-m flex-w size-302 ">
+    <span class="stext-107 cl6 p-lr-25">
+
+    </span>
+
+    <span class="stext-107 cl6 p-lr-25">
+
+    </span>
+</div>
+
+
+<!-- Modal1 -->
+<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+    <div class="overlay-modal1 js-hide-modal1"></div>
+
+    <div class="container">
+        <div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+            <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+                <img src="~/images/icons/icon-close.png" alt="Cerrar" />
+            </button>
+
+            <div class="row">
+                <div class="col-md-6 col-lg-7 p-b-30">
+                    <div class="p-l-25 p-r-30 p-lr-0-lg">
+                        <div id="Galeria">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-5 p-b-30">
+                    <div class="p-r-50 p-t-5 p-lr-0-lg">
+                        <h4 class="mtext-105  js-name-detail ">
+                            <strong><label id="m_titulo"></label> </strong>
+
+                        </h4>
+                        <h4 class="mtext-106 cl2">
+                            <label id="m_SuperficieT"></label>
+                        </h4>
+                        <h4 class="mtext-106 cl2">
+                            <label id="m_Superficie"></label>
+                        </h4>
+                        <p class="mtext-102">
+                            <label id="m_TipoCategoria"></label>
+                        </p>
+                        <p class="stext-102">
+                            <label id="m_direccion"></label>
+                        </p>
+                        <h4 class="mtext-106 cl2">
+                            <label id="m_precio"></label>
+                        </h4>
+                        <hr />
+
+                        <div class="">
+                            <textarea rows="10" cols="80" class="form-control" disabled="" placeholder="" id="m_Descripcion"></textarea>
+                        </div>
+
+
+                        <!--  -->
+                        <div class="p-t-33 text-center">
+                            <div class="text-center">
+                                <div class="size-204 flex-w flex-m respon6-next text-center">
+                                    <div id="MasInformacion">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg6 flex-c-m flex-w size-302 ">
+            <span class="stext-107 cl6 p-lr-25">
+                <label id="m_TipoCategoriaS"></label>
+            </span>
+            <span class="stext-107 cl6 p-lr-25">
+            </span>
+        </div>
+    </div>
+</div>
+<script>
+    function Consulta(valor) {
+        if (valor == 'Oficinas') {
+            window.location.href = '@Url.Action("Oficinas","Home")';
+        } else if (valor == 'Departamentos') {
+            window.location.href = '@Url.Action("Departamentos","Home")';
+        }else if (valor == 'Casas') {
+            window.location.href = '@Url.Action("Casas","Home")';
+        }else if (valor == 'Ranchos') {
+            window.location.href = '@Url.Action("Ranchos","Home")';
+        }else if (valor == 'Quirofano') {
+            window.location.href = '@Url.Action("Quirofano","Home")';
+        }else if (valor == 'Consultorio') {
+            window.location.href = '@Url.Action("Consultorio","Home")';
+        }
+    }
+
+    function VistaRapida(inmueble) {
+        
+        $('.js-modal1').addClass('show-modal1');
+ 
+
+        var obj = {};
+        obj['IdInmueble'] = inmueble;
+        var jsonObject = {
+            "InmueblesImg": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("InmueblesImgs", "Home")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                PintaGaleria(response);
+
+                $.ajax({
+                    url: "@Url.Action("Inmuebles", "Home")",
+                    type: "POST",
+                    data: JSON.stringify(jsonObject),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    error: function (response) {
+                        alert("MANDAR MENSAJE SE ERROR");
+                    },
+                    success: function (response) {
+                        PintaInformacion(response);
+                    }
+                });
+            }
+        });
+
+    }
+
+    function PintaInformacion(data) {
+        console.log(data)
+        $("#m_titulo").text( data.Titulo );
+        $("#m_Superficie").text('Área construida : ' + data.Superficie + " " + data.UnidadMedidaAbre);
+        $("#m_SuperficieT").text('Área terreno: ' + data.SuperficieT + " " + data.UnidadMedidaAbre);
+        $("#m_TipoCategoria").html('<strong>Categoría: </strong>' + data.TipoCategoria + ','+data.SubCategoria );
+        $("#m_TipoCategoriaS").html('<strong>Categoría: </strong>' + data.TipoCategoria);
+        $("#m_direccion").html(data.Estado + ", " + data.Poblacion + ", " + data.CP + ", " + data.Colonia);
+        $("#m_precio").html(data.Precio);
+        $("#m_Descripcion").html(data.Descripcion);
+
+        $("#MasInformacion").html('<a href="@Url.Action("InmuebleDetalle", "Home")?Inm=' + data.IdCf + '" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 ">Mas información</a>');
+
+    }
+
+    function EntraDetalle(dato) {
+        alert(dato)
+    }
+
+    function PintaGaleria(Contenido) {
+
+
+        $('#Galeria').html('');
+        var Galeria = '';
+        if (Contenido.length > 0) {
+            Galeria += '<div class="wrap-slick3 flex-sb flex-w">' +
+                '<div class="wrap-slick3-dots"></div>' +
+                '<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>' +
+                '<div class="slick3 gallery-lb">';
+
+            for (var b = 0; b < Contenido.length; b++) {
+                Galeria += '<div class="item-slick3" data-thumb="http://' + Contenido[b].Descripcion + '">' +
+                    '<div class="wrap-pic-w pos-relative">' +
+                    '<img src="http://' + Contenido[b].Descripcion + '" alt="IMG-PRODUCT">' +
+                    //'<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="https://' + Contenido[b].Descripcion + '">' +
+                    //'<i class="fa fa-expand"></i>' +
+                    //'</a>' +
+                    '</div>' +
+                    '</div>';
+            }
+
+            Galeria += '</div>' +
+                '</div>';
+        }
+        $('#Galeria').html(Galeria);
+
+        $('.wrap-slick3').each(function () {
+
+            $(this).find('.slick3').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                fade: true,
+                infinite: true,
+                autoplay: false,
+                autoplaySpeed: 6000,
+
+                arrows: true,
+                appendArrows: $(this).find('.wrap-slick3-arrows'),
+                prevArrow: '<button class="arrow-slick3 prev-slick3"><i class="fa fa-angle-left" aria-hidden="true"></i></button>',
+                nextArrow: '<button class="arrow-slick3 next-slick3"><i class="fa fa-angle-right" aria-hidden="true"></i></button>',
+
+
+
+                dots: true,
+                centerMode: true,
+                focusOnSelect: true,
+                appendDots: $(this).find('.wrap-slick3-dots'),
+                dotsClass: 'slick3-dots',
+                customPaging: function (slick, index) {
+                    var portrait = $(slick.$slides[index]).data('thumb');
+                    return '<img src=" ' + portrait + ' "/><div class="slick3-dot-overlay"></div>';
+                },
+            });
+        });
+
+    }
+
+</script>
+
+<script>
+    function ConsultaSubcategorias(dt) {
+        $("#MuCategoria").html('');
+        $("#Cat_Menu").html('');
+        $("#ContenidoDt").html('');
+
+        var obj = {};
+        obj['IdSubCategoria'] = dt;
+        var jsonObject = {
+            "TipoSubCategoria": obj
+        };
+
+        var Mavegacion = '';
+        var ContenidoDT = '';
+        $.ajax({
+            url: "@Url.Action("TipoSubCategoria", "home")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (resultado) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (resultado) {
+                console.log(resultado);
+                if (resultado.length > 0) {
+                    Mavegacion = '<button class=" cl13 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">' +
+                                    'Mostrar todo' +
+                                '</button>';
+
+                    $(resultado).each(function () {
+
+                        Mavegacion += '<button class=" cl13 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".'+this.Nombre+'">' +
+                                        this.Nombre +
+                                        '</button>';
+
+
+                    });
+
+
+                    $("#Cat_Menu").html(Mavegacion);
+
+                    /********* Carga data *************/
+                    $.ajax({
+                        url: "@Url.Action("InmueblesSubCategorias", "home")",
+                        type: "POST",
+                        data: JSON.stringify(jsonObject),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        error: function (resultado) {
+                            alert("MANDAR MENSAJE SE ERROR");
+                        },
+                        success: function (resultado) {
+
+                            $(resultado).each(function () {
+                                ContenidoDT += "" +
+                                    "<div class='col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item "+ this.TipoCategoria +"'>" +
+                                        "<!-- Block2 --> " +
+                                        "<div class='block2'>" +
+                                            "<div class='block2-pic hov-img0'>" +
+                                                "<img src='" + this.Imagen + "' alt='IMG-PRODUCT'>" +
+
+                                                "<a  onclick='VistaRapida(" + this.Id + ")' class='block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1'>" +
+                                                    "Vista rápida" +
+                                                "</a>" +
+                                            "</div>" +
+
+                                            "<div class='block2-txt flex-w flex-t p-t-14 text-center'>" +
+                                                "<div class='block2-txt-child1  text-center'>" +
+                                                    "<a href='#' class='stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6'>" +
+                                                        "<span class='block2-txt-child1-Sub'>" + this.SubCategoria + ", " + this.TipoCategoria + "</span>" +
+                                                        "<br />" +
+                                                        "" + this.Estado + "" +
+                                                    "</a>" +
+                                                    "<div class='product-rating'>" +
+                                                        "<i class='fa fa-star'></i>" +
+                                                        "<i class='fa fa-star'></i>" +
+                                                        "<i class='fa fa-star'></i>" +
+                                                        "<i class='fa fa-star'></i>" +
+                                                        "<i class='fa fa-star'></i>" +
+                                                    "</div>" +
+                                                    "<hr />" +
+                                                    "<span class='stext-105 cl3'>" +
+                                                        "" + this.Precio + "" +
+                                                    "</span>" +
+                                                    "<div class='product-label'>" +
+                                                        //"<span class='sale'>-30%</span>" +
+                                                        "<span class='new'>NEW</span>" +
+                                                    "</div>" +
+                                                    "<div class='product-btns'>" +
+                                                        "<button class='add-to-wishlist' tabindex='0' onclick='AgregarInteres(" + this.Id + ")'><i class='fa fa-heart-o'></i><span class='tooltipp'>Añadir interes</span></button>" +
+                                                        "<button class='add-to-compare' tabindex='0'  onclick='AgregarComparar(" + this.Id + ")'><i class='fa fa-exchange'></i><span class='tooltipp'>Añadir comparar</span></button>" +
+                                                        "<button class='quick-view js-show-modal1' tabindex='0' onclick='VistaRapida(" + this.Id + ")'><i class='fa fa-eye'></i><span class='tooltipp'>Vista rápida</span></button>" +
+                                                    "</div>" +
+                                                "</div>" +
+                                            "</div>" +
+
+                                        "</div>" +
+                                    "</div>";
+                            });
+                            $("#ContenidoDt").html(ContenidoDT);
+                        }
+                    });
+
+
+
+                } else {
+                    $("#MuCategoria").html('<p>Por el momento no hay inmuebles disponibles para esta categoría...</p>');
+                }
+
+
+
+            }
+        });
+    }
+
+    function AgregarInteres(inmueble)
+    {
+        var obj = {};
+        obj['IdInmueble'] = inmueble;
+        var jsonObject = {
+            "Interes": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("AgregarInteres", "Interes")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                if (response.Respuesta) {
+                    swal({
+                        title: "Agregado a mi interés !",
+                        text: response.RespuestaText,
+                        icon: "success",
+                        button: "Aceptar",
+                    });
+
+                    $('#BtIconsnInteres').attr('data-notify', response.Contenido);
+                    $('#BtIconsnInteres2').attr('data-notify', response.Contenido);
+                }
+                else {
+                    swal({
+                        title: "Algo ocurrió !",
+                        text: response.RespuestaText,
+                        icon: "warning",
+                        button: "Aceptar",
+                    });
+                }
+            }
+        });
+    }
+
+    function AgregarComparar(inmueble)
+    {
+        var obj = {};
+        obj['IdInmueble'] = inmueble;
+        var jsonObject = {
+            "Comparar": obj
+        };
+
+        console.log(obj);
+
+        $.ajax({
+            url: "@Url.Action("AgregarComparar", "Comparar")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                if (response.Respuesta) {
+                    swal({
+                        title: "Agregado a Comparar !",
+                        text: response.RespuestaText,
+                        icon: "success",
+                        button: "Aceptar",
+                    });
+
+                    $('#BtIconsnComparar').attr('data-notify', response.Contenido);
+                    $('#BtIconsnComparar2').attr('data-notify', response.Contenido);
+                }
+                else {
+                    swal({
+                        title: "Algo ocurrió !",
+                        text: response.RespuestaText,
+                        icon: "warning",
+                        button: "Aceptar",
+                    });
+                }
+            }
+        });
+    }
+</script>

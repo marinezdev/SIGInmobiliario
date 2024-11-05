@@ -1,0 +1,266 @@
+﻿
+
+<style>
+    .swal-title {
+        font-family: "Proxima Nova",-apple-system,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+        color: #333333;
+        font-size: 30px;
+        line-height: 1.5;
+        padding: 0 15px;
+        margin: 0px;
+    }
+
+    .swal-text {
+        font-family: "Proxima Nova",-apple-system,"Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+        color: #555555;
+        font-size: 20px;
+        line-height: 1.666667;
+        text-align: center;
+        margin: 0px;
+    }
+
+</style>
+<link href="~/Content/css/login/Style.css" rel="stylesheet" />
+<br />
+<br />
+<br />
+<br />
+
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-sm-offset-2 text">
+                    <br />
+                    <h1><strong>Regístrate</strong>  y encuentra tu lugar</h1>
+                    <div class="description">
+                        <p>
+                            Obten tu cuenta con nosotros y podrás publicar cualquier tipo de inmueble <strong>gratis !</strong>
+                            <br />
+
+                            Al enviar tu informacion estás aceptando los <a href="@Url.Action("terminosycondiciones", "Home")"><strong>Términos y condiciones de Uso </strong>. </a>
+                            <br />
+                            <h1><strong>Se enviará un correo electrónico para confirmar tu cuenta.</strong></h1>
+
+                            <br />
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 book">
+                    <img src="~/images/Slider/slider1.jpg" class="img-fluid" />
+                </div>
+                <div class="col-sm-6 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Regístrate con tu email</h3>
+                            <br />
+                            <p>Complete el siguiente formulario para obtener acceso:</p>
+                        </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-pencil"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+                        <form role="form">
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="sr-only" for="form-email">Email</label>
+                                    <input type="text" name="form-email"  onKeyUp="CorreofrM('Email')" placeholder="Email ..." class="form-email form-control" id="Email">
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label class="sr-only" for="form-last-name">Password</label>
+                                    <input type="password" name="Password" placeholder="Password ..." class="form-last-name form-control" id="Password">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="sr-only" for="form-last-name">Repetir Password</label>
+                                    <input type="password" name="RepPassword" placeholder="Repetir Password ..." class="form-last-name form-control" id="RepPassword">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <p style="color:#ffffff; text-align:center">
+                                    <strong> Datos personales</strong>
+                                </p>
+                                <hr />
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="sr-only" for="form-email">Nombre</label>
+                                    <input type="text" name="form-last-name" onkeypress="return soloLetras(event)" placeholder="Nombre ..." class="form-email form-control" id="Nombre">
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label class="sr-only" for="form-last-name">Apellidos </label>
+                                    <input type="text" name="form-last-name" onkeypress="return soloLetras(event)" placeholder="Apellidos ..." class="form-last-name form-control" id="Apellidos">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-6">
+                                    <label class="sr-only" for="form-email">Teléfono</label>
+                                    <input type="text" name="form-phone" onkeypress="return soloNum(event)" placeholder="Teléfono..." class="form-email form-control" id="Telefono">
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label class="sr-only" for="form-last-name">Teléfono móvil </label>
+                                    <input type="text" name="form-phone"" onkeypress="return soloNum(event)"  placeholder="Teléfono móvil ..." class="form-last-name form-control" id="TelefonoMovil">
+                                </div>
+                            </div>
+                            <div id='alertBoxes'></div><span class='timer' id='timer'></span>
+                            <br />
+                            <button id="BtnRegistrar" type="button" class="btn">Registrar</button>
+
+                            <p style="color:#fff; text-align:center">
+                                <br />
+                                Ya tengo cuenta,  <a href="@Url.Action("Login", "Adm")"><strong>ingresar </strong></a>
+                            </p>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<br />
+<br />
+<br />
+<div class="bg6 flex-c-m flex-w size-302 ">
+    <span class="stext-107 cl6 p-lr-25">
+
+    </span>
+    <span class="stext-107 cl6 p-lr-25">
+
+    </span>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        var timeSlide = 500;
+        $('#timer').hide(0);
+        $('#timer').css('display', 'none');
+        $('#BtnRegistrar').click(function () {
+            $('.box-success,.box-error').slideUp(timeSlide);
+            setTimeout(function () {
+
+                if (valida() == "ok") {
+                    $("BtnRegistrar").prop('disabled', true);
+                    
+                    $('#timer').fadeOut(300);
+                    $('#alertBoxes').html('<div class="box-error"></div>');
+                    $('.box-error').hide(0).html("Enviado <img src='/images/icons/ajax-loader.gif' width='20px' height='20px'/>");
+                    $('.box-error').slideDown(timeSlide);
+
+                    var arreglo = [];
+                    var obj = {};
+
+                    obj['Nombre'] = $('#Nombre').val();
+                    obj['Apellidos'] = $('#Apellidos').val();
+                    obj['Email'] = $('#Email').val();
+                    obj['Telefono'] = $('#Telefono').val();
+                    obj['TelefonoMovil'] = $('#TelefonoMovil').val();
+                    obj['Password'] = $('#Password').val();
+                    obj['RepPassword'] = $('#RepPassword').val();
+
+                    var jsonObject = {
+                        "Usuarios": obj
+                    };
+
+                    ///***************************************************************************************************************/
+                    //$('#timer').fadeOut(300);
+                    //$('#alertBoxes').html('<div class="box-error"></div>');
+                    //$('.box-error').hide(0).html('');
+                    //$('.box-error').slideDown(timeSlide);
+
+                    //swal({
+                    //    title: "Sitio en mantenimiento !",
+                    //    text: "Para poder brindarte el mejor servicio el sito se encuentra en mantenimiento temporalmente",
+                    //    icon: "warning",
+                    //    button: "Aceptar",
+                    //});
+                    ///*****************************************************************************************************************/
+
+
+                    $.ajax({
+                        url: "@Url.Action("RegistrarNuevoUsuario", "Adm")",
+                        type: "POST",
+                        data: JSON.stringify(jsonObject),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        error: function (response) {
+                            $('#timer').fadeOut(300);
+                            $('#alertBoxes').html('<div class="box-error"></div>');
+                            $('.box-error').hide(0).html('');
+                            $('.box-error').slideDown(timeSlide);
+
+                            swal({
+                              title: "Algo ocurrió !",
+                              text: "Ha ocurrido un problema durante tu registro, inténtalo mas tarde ",
+                              icon: "warning",
+                              button: "Aceptar",
+                            });
+
+                            $("BtnRegistrar").prop('disabled', false);
+                        },
+                        success: function (response) {
+                            $('#timer').fadeOut(300);
+                            $('#alertBoxes').html('<div class="box-error"></div>');
+                            $('.box-error').hide(0).html('');
+                            $('.box-error').slideDown(timeSlide);
+                            $("BtnRegistrar").prop('disabled', false);
+                            
+                            if (response.Respuesta) {
+                                swal({
+                                  title: "Registro exitoso !",
+                                  text: 'Se a enviado un correo electrónico para confirmar tu cuenta.',
+                                  icon: "success",
+                                  button: "Aceptar",
+                                })
+                                    .then((value) => {
+                                        window.location.href = "@Url.Action("Login", "Adm")";
+                                });
+                            }
+                            else {
+                                swal({
+                                  title: "Algo ocurrió !",
+                                  text: response.Contenido,
+                                  icon: "warning",
+                                  button: "Aceptar",
+                                });
+                            }
+                        }
+                    });
+
+                } else {
+                    $('#timer').fadeOut(300);
+                    $('#alertBoxes').html('<div class="box-error"></div>');
+                    $('.box-error').hide(0).html(valida());
+                    $('.box-error').slideDown(timeSlide);
+
+                    $.notify({
+	                icon: 'fa fa-paw',
+	                message: "Formulario incompleto ."
+                    },{
+                            type: 'danger',
+                        allow_dismiss: false,
+                        animate: {
+		                    enter: 'animated rollIn',
+		                    exit: 'animated rollOut'
+	                    }
+                    });
+
+                }
+            }, timeSlide);
+            return false;
+
+        });
+    });
+</script>

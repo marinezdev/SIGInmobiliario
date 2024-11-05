@@ -1,0 +1,952 @@
+﻿
+@{
+    ViewBag.Title = "InmuebleDetalle";
+    Layout = "~/Views/Shared/_LayoutBusiness.cshtml";
+}
+
+
+<br />
+<br />
+<br />
+
+<style>
+     .thumb-image {
+        width: 500px;
+    }
+
+        .thumb-image > img {
+            width: 100%;
+        }
+
+
+    .offer-box, .slide {
+        color: #009688;
+        font-size: 13px;
+        padding: 2px 15px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .single-product-slider .carousel-control-prev {
+        bottom: auto;
+        background: #111111;
+        width: 6%;
+        padding: 10px 0;
+        background-image: none;
+        top: 40%;
+    }
+
+    .single-product-slider .carousel-control-next {
+        bottom: auto;
+        background: #111111;
+        width: 6%;
+        padding: 10px 0;
+        background-image: none;
+        top: 40%;
+    }
+
+    .carousel-indicators {
+        position: relative;
+        bottom: 0;
+        background: #000000;
+    }
+
+    .product-details .product-btns li + li {
+        margin-left: 15px;
+    }
+    .product-details .product-btns li {
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+
+    .product-details .product-btns li {
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: 12px;
+    }
+</style>
+<!-- breadcrumb -->
+<div class="container">
+    <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
+        <a href="#" class="stext-109 cl8 hov-cl1 trans-04">
+            Inicio
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <a href="#" class="stext-109 cl8 hov-cl1 trans-04">
+            @ViewBag.SubCategoria
+            <i class="fa fa-angle-right m-l-9 m-r-10" aria-hidden="true"></i>
+        </a>
+
+        <span class="stext-109 cl4">
+            @ViewBag.TipoCategoria
+        </span>
+    </div>
+</div>
+
+
+
+<!-- Product Detail -->
+<section class="sec-product-detail bg0 p-t-6 p-b-6">
+    <div class="container">
+        <div class="row" style="display: block;">
+            <div class="col-md-6 col-lg-7 p-b-30">
+
+                <div class="alternative-cta-container">
+                    <button data-toggle="modal" data-target="#ModalLlamada">Quiero que me llamen</button>
+                    <button data-toggle="modal" data-target="#ModalConsulta">Enviar consulta</button>
+                    <button data-toggle="modal" data-target="#ModalAgendar">Agendar visita</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+
+
+
+
+
+
+            <div class="col-md-6 col-lg-7 p-b-30">
+                <div class="p-l-25 p-r-30 p-lr-0-lg">
+                    @{
+                        if (ViewBag.Imgs.Count > 5)
+                        {
+                            <div id="carousel-example-1" class="single-product-slider carousel slide" data-ride="carousel" data-interval="3000">
+                                <div class="carousel-inner" role="listbox">
+                                    @{
+                                        int acti = 0;
+                                        foreach (var cat in ViewBag.Imgs)
+                                        {
+                                            if (acti == 0)
+                                            {
+                                                <div class="carousel-item active"> <img class="d-block w-100" src="http://@cat.Descripcion"> </div>
+
+                                                acti = acti + 1;
+                                            }
+                                            else
+                                            {
+                                                <div class="carousel-item"> <img class="d-block w-100" src="http://@cat.Descripcion" > </div>
+                                            }
+                                        }
+                                    }
+                                </div>
+                                <a class="carousel-control-prev" href="#carousel-example-1" role="button" data-slide="prev">
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carousel-example-1" role="button" data-slide="next">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                                <ol class="carousel-indicators">
+                                    @{
+                                        int acti2 = 0;
+                                        int cont = 0;
+                                        foreach (var cat in ViewBag.Imgs)
+                                        {
+                                            if (acti2 == 0)
+                                            {
+                                                <li data-target="#carousel-example-1" data-slide-to="@cont" class="active">
+                                                    <img class="d-block w-100 img-fluid" src="http://@cat.Descripcion" alt="" />
+                                                </li>
+                                                acti2 = acti2 + 1;
+                                            }
+                                            else
+                                            {
+                                                <li data-target="#carousel-example-1" data-slide-to="@cont">
+                                                    <img class="d-block w-100 img-fluid" src="http://@cat.Descripcion" alt="" />
+                                                </li>
+                                            }
+                                        }
+                                    }
+                                </ol>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="wrap-slick3 flex-sb flex-w">
+                                <div class="wrap-slick3-dots"></div>
+                                <div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+                                <div class="slick3 gallery-lb">
+                                    @{
+                                        foreach (var cat in ViewBag.Imgs)
+                                        {
+                                            <div class="item-slick3" data-thumb="http://@cat.Descripcion">
+                                                <div class="wrap-pic-w pos-relative">
+                                                    <img src="http://@cat.Descripcion" alt="IMG-PRODUCT">
+
+                                                    <a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="http://@cat.Descripcion">
+                                                        <i class="fa fa-expand"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-5 p-b-30">
+                <div class="p-r-50 p-t-5 p-lr-0-lg">
+                    <h4 class="mtext-105  js-name-detail " style="color:#00BCD4">
+                        @ViewBag.SubCategoria
+                    </h4>
+                    <h4 class="mtext-105  js-name-detail ">
+                        @ViewBag.Titulo
+                    </h4>
+                    <h4 class="mtext-106 cl2">
+                        Área terrena  @ViewBag.SuperficieT @ViewBag.UnidadMedidaAbre
+                    </h4>
+                    <h4 class="mtext-106 cl2">
+                        Área construida   @ViewBag.Superficie @ViewBag.UnidadMedidaAbre
+                    </h4>
+                    <p class="mtext-102">
+                        <strong>Categoría: </strong>  @ViewBag.TipoCategoria 
+                    </p>
+                    <p class="stext-102">
+                        @ViewBag.Estado, @ViewBag.Poblacion, @ViewBag.CP, @ViewBag.Colonia
+                    </p>
+                    <h4 class="mtext-106 cl2">
+                        @ViewBag.Precio
+                    </h4>
+                    <hr />
+
+                    <div class="">
+                        <textarea rows="25" cols="80" class="form-control" disabled="" placeholder="" value="@ViewBag.Descripcion">@ViewBag.Descripcion</textarea>
+
+                    </div>
+                    <br />
+                    <hr />
+                    <p class="stext-102">
+                        Mostrar número telefónico del contacto, puedes comunicarte directamente.
+                    </p>
+                    <br />
+                    <div>
+                        <button id="BtnMostarTelefono" class="flex-c-m cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04" onclick="MostrarTelefono(@ViewBag.Id)">
+                            Mostrar
+                        </button>
+                    </div>
+                    <div id="TelefonoM" class="text-center" style="display:none;">
+                        <span id="sTelefono" class="stext-102 cl3 size-205" style="font-size: 30px;">
+                        </span>
+                    </div>
+                    <!--  -->
+                    @*<div class="p-t-33">
+
+            <div class="flex-w flex-r-m p-b-10">
+                <div class="size-204 flex-w flex-m respon6-next">
+                    <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+                        Add to cart
+                    </button>
+                </div>
+            </div>
+        </div>*@
+
+                    <!--  -->
+                    @*<div class="flex-w flex-m p-l-100 p-t-40 respon7">
+            <div class="flex-m bor9 p-r-10 m-r-11">
+                <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Añadir interés">
+                    <i class="zmdi zmdi-favorite"></i>
+                </a>
+            </div>
+
+            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+                <i class="fa fa-facebook"></i>
+            </a>
+
+            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+                <i class="fa fa-twitter"></i>
+            </a>
+
+            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </div>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="bor10 m-t-50 p-t-43 p-b-40">
+            <!-- Tab01 -->
+            <div class="tab01">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item p-b-10">
+                        <a class="nav-link " data-toggle="tab" href="#description" role="tab">Descripción </a>
+                    </li>
+
+                    <li class="nav-item p-b-10">
+                        <a class="nav-link active" data-toggle="tab" href="#information" role="tab">Información adicional </a>
+                    </li>
+
+                    <li class="nav-item p-b-10">
+                        <a class="nav-link" data-toggle="tab" href="#reviews" role="tab">Comentarios </a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content p-t-43">
+                    <!-- - -->
+                    <div class="tab-pane fade " id="description" role="tabpanel">
+                        <div class="how-pos2 p-lr-15-md">
+                            <div class="card">
+                                <div class="card-body">
+                                    <textarea rows="25" cols="80" class="form-control" disabled="" placeholder="" value="@ViewBag.Descripcion">@ViewBag.Descripcion</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- - -->
+                    <div class="tab-pane fade show active" id="information" role="tabpanel">
+                        <div class="row">
+                            <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="table table-hover table-striped">
+
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <span class="stext-102 cl3 size-205">
+                                                            Clasificación
+                                                        </span>
+                                                    </th>
+                                                    <td>@ViewBag.SubCategoria</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <span class="stext-102 cl3 size-205">
+                                                            Fecha publicada
+                                                        </span>
+                                                    </th>
+                                                    <td>@ViewBag.FechaRegistro</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <span class="stext-102 cl3 size-205">
+                                                            Categoría
+                                                        </span>
+                                                    </th>
+                                                    <td>@ViewBag.TipoCategoria</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <span class="stext-102 cl3 size-205">
+                                                            Dirección
+                                                        </span>
+                                                    </th>
+                                                    <td>@ViewBag.Estado, @ViewBag.Poblacion, @ViewBag.CP, @ViewBag.Colonia</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <span class="stext-102 cl3 size-205">
+                                                            Área del terreno
+                                                        </span>
+                                                    </th>
+                                                    <td>@ViewBag.SuperficieT @ViewBag.UnidadMedidaAbre </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <span class="stext-102 cl3 size-205">
+                                                            Área construida
+                                                        </span>
+                                                    </th>
+                                                    <td>@ViewBag.Superficie @ViewBag.UnidadMedidaAbre</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <span class="stext-102 cl3 size-205">
+                                                            Baños
+                                                        </span>
+                                                    </th>
+                                                    <td>@ViewBag.WC </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <span class="stext-102 cl3 size-205">
+                                                            Estacionamientos
+                                                        </span>
+                                                    </th>
+                                                    <td>@ViewBag.Estacionamientos</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <span class="stext-102 cl3 size-205">
+                                                            Precio
+                                                        </span>
+                                                    </th>
+                                                    <td>@ViewBag.Precio @ViewBag.NombreMoneda</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- - -->
+                    <div class="tab-pane fade" id="reviews" role="tabpanel">
+                        <div class="row">
+                            <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
+                                @{
+                                    foreach (var cat in ViewBag.comentarios)
+                                    {
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="wrap-pic-s size-109 col-md-2">
+                                                        <img src="~/images/icons/usuario.png" />
+                                                    </div>
+                                                    <div class=" col-md-10">
+                                                        <div class="flex-w flex-sb-m p-b-17">
+                                                            <span class="mtext-107 cl2 p-r-20">
+                                                                @cat.Nombre
+                                                            </span>
+
+                                                            <span class="fs-18 cl11">
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                                <i class="zmdi zmdi-star"></i>
+                                                            </span>
+                                                        </div>
+
+                                                        <p class="stext-102 cl13">
+                                                            @cat.Comentario
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <br />
+                                    }
+                                }
+                                <hr />
+                                <div class="p-b-30 m-lr-15-sm">
+                                    <h5 class="Rmtext-107 cl2" style="cursor:pointer;" onclick="sesio()">
+                                        <i class="fa fa-plus-circle" aria-hidden="true"></i> Agrega un nuevo comentario
+                                    </h5>
+
+                                    <!-- Add review -->
+                                    <form class="w-full">
+
+
+                                        @*<p class="stext-102 cl6">
+                                                Su dirección de correo electrónico no será publicada. Los campos obligatorios están marcados *
+                                            </p>
+
+                                            <div class="flex-w flex-m p-t-50 p-b-23">
+                                                <span class="stext-102 cl3 m-r-16">
+                                                    Tu clasificación
+                                                </span>
+
+                                                <span class="wrap-rating fs-18 cl11 pointer">
+                                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                    <i class="item-rating pointer zmdi zmdi-star-outline"></i>
+                                                    <input class="dis-none" type="number" name="rating">
+                                                </span>
+                                            </div>
+
+                                            <div class="row p-b-25">
+                                                <div class="col-12 p-b-5">
+                                                    <label class="stext-102 cl3" for="review">Tú comentario</label>
+                                                    <textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
+                                                </div>
+
+                                                <div class="col-sm-6 p-b-5">
+                                                    <label class="stext-102 cl3" for="name">Nombre</label>
+                                                    <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="name">
+                                                </div>
+
+                                                <div class="col-sm-6 p-b-5">
+                                                    <label class="stext-102 cl3" for="email">Email</label>
+                                                    <input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="email">
+                                                </div>
+                                            </div>
+
+                                            <button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+                                                Registrar
+                                            </button>*@
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg6 flex-c-m flex-w size-302 m-t-73 p-tb-15">
+        <span class="stext-107 cl6 p-lr-25">
+            @ViewBag.Superficie
+        </span>
+
+        <span class="stext-107 cl6 p-lr-25">
+            Categoría: @ViewBag.TipoCategoria
+        </span>
+    </div>
+</section>
+
+
+<!-- Related Products -->
+<section class="sec-relate-product bg0 p-t-45 p-b-105">
+    <div class="container">
+        <div class="p-b-45">
+            <h3 class="ltext-106 cl5 txt-center">
+                Publicaciones relacionadas
+            </h3>
+        </div>
+
+        <!-- Slide2 -->
+        <div class="wrap-slick2">
+            <div class="slick2">
+
+                @Html.Raw(ViewBag.inmuebles)
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- MODALS QUIERO QUE ME LLAMEN --->
+<div class="modal fade" id="ModalLlamada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center Header-Modal">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Quiero que me llamen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>Email  </label>
+                <div class="bor8 bg0 m-b-2 m-t-2 col-md-12">
+                    <input class="stext-111 size-116 " type="email" name="Email" id="ML_Email" placeholder="Email">
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Nombre  </label>
+                        <div class="bor8 bg0 m-b-2 m-t-2 col-md-12">
+                            <input class="stext-111 size-116 " type="text" name="Nombre" id="ML_NombreContacto" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Teléfono  </label>
+                        <div class="bor8 bg0 m-b-2 m-t-2 col-md-12">
+                            <input class="stext-111 size-116 " type="tel" name="Telefono" id="ML_Telefono" placeholder="Teléfono">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn-header-modal col-md-5" onclick="JsLlamada(@ViewBag.Id)">Enviar </button>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <br />
+                        <p style="font-size:12px">Al enviar estás aceptando los <a href="#"><strong>Términos y condiciones de Uso </strong></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODALS ENVIO CONSULTA --->
+<div class="modal fade" id="ModalConsulta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center Header-Modal">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Enviar consulta </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>Email  </label>
+                <div class="bor8 bg0 m-b-2 m-t-2 col-md-12">
+                    <input class="stext-111 size-116 " type="email" name="Email" id="MC_Email" placeholder="Email">
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Nombre  </label>
+                        <div class="bor8 bg0 m-b-2 m-t-2 col-md-12">
+                            <input class="stext-111 size-116 " type="text" name="Nombre" id="MC_NombreContacto" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Teléfono  </label>
+                        <div class="bor8 bg0 m-b-2 m-t-2 col-md-12">
+                            <input class="stext-111 size-116 " type="tel" name="Telefono" id="MC_Telefono" placeholder="Teléfono">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <br />
+                        <label>Mensaje</label>
+
+                        <textarea style="width:100%;height:80px;border: 1px solid #c4c4c4;" id="MC_Mensaje" name="msg">Hola, me interesa este inmueble que vi en Servicios inmobiliarios G y quiero que me contacten. Gracias.</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn-header-modal col-md-5" onclick="JsConsulta(@ViewBag.Id)">Enviar </button>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <br />
+                        <p style="font-size:12px">Al enviar estás aceptando los <a href="#"><strong>Términos y condiciones de Uso </strong></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODALS QUIERO QUE ME LLAMEN --->
+<div class="modal fade" id="ModalAgendar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center Header-Modal">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Agendar visita</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>Email  </label>
+                <div class="bor8 bg0 m-b-2 m-t-2 col-md-12">
+                    <input class="stext-111 size-116 " type="email" name="Email" id="MA_Email" placeholder="Email">
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <p style="font-size:16px;"><strong> Ingresa tus datos y el anunciante te contactará para coordinar la visita</strong></p>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Nombre  </label>
+                        <div class="bor8 bg0 m-b-2 m-t-2 col-md-12">
+                            <input class="stext-111 size-116 " type="text" name="Nombre" id="MA_NombreContacto" placeholder="Nombre">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Teléfono  </label>
+                        <div class="bor8 bg0 m-b-2 m-t-2 col-md-12">
+                            <input class="stext-111 size-116 " type="tel" name="Telefono" id="MA_Telefono" placeholder="Teléfono">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn-header-modal col-md-5" onclick="JsAgendar(@ViewBag.Id)">Enviar </button>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <br />
+                        <p style="font-size:12px">Al enviar estás aceptando los <a href="#"><strong>Términos y condiciones de Uso </strong></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var obj = {};
+        obj['Id'] = @ViewBag.Id;
+        var jsonObject = {
+            "Inmueble": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("Visto", "business")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                
+            },
+            success: function (response) {
+                
+            }
+        });
+
+    });
+
+    function AgregarInteres(inmueble)
+    {
+        var obj = {};
+        obj['IdInmueble'] = inmueble;
+        var jsonObject = {
+            "Interes": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("AgregarInteres", "Interes")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                if (response.Respuesta) {
+                    swal({
+                        title: "Agregado a mi interés !",
+                        text: response.RespuestaText,
+                        icon: "success",
+                        button: "Aceptar",
+                    });
+
+                    $('#BtIconsnInteres').attr('data-notify', response.Contenido);
+                    $('#BtIconsnInteres2').attr('data-notify', response.Contenido);
+                    
+                }
+                else {
+                    swal({
+                        title: "Algo ocurrió !",
+                        text: response.RespuestaText,
+                        icon: "warning",
+                        button: "Aceptar",
+                    });
+                }
+            }
+        });
+    }
+
+    function AgregarComparar(inmueble)
+    {
+        var obj = {};
+        obj['IdInmueble'] = inmueble;
+        var jsonObject = {
+            "Comparar": obj
+        };
+
+        console.log(obj);
+
+        $.ajax({
+            url: "@Url.Action("AgregarComparar", "Comparar")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                if (response.Respuesta) {
+                    swal({
+                        title: "Agregado a Comparar !",
+                        text: response.RespuestaText,
+                        icon: "success",
+                        button: "Aceptar",
+                    });
+
+                    $('#BtIconsnComparar').attr('data-notify', response.Contenido);
+                    $('#BtIconsnComparar2').attr('data-notify', response.Contenido);
+
+                }
+                else {
+                    swal({
+                        title: "Algo ocurrió !",
+                        text: response.RespuestaText,
+                        icon: "warning",
+                        button: "Aceptar",
+                    });
+                }
+            }
+        });
+    }
+
+    function sesio() {
+        swal({
+            title: "ups. !",
+            text: 'Lo sentimos, Sitio en mantenimiento.'
+        });
+    }
+
+    function VistaRapida(inmueble) {
+        var obj = {};
+        obj['Id'] = inmueble;
+        var jsonObject = {
+            "Inmueble": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("InmuebleContultaId", "business")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                console.log(response);
+                window.location.href = '@Url.Action("InmuebleDetalle", "business")?Inm=' + response + ' ';
+            }
+        });
+    }
+
+    function MostrarTelefono(dt) {
+        var obj = {};
+        obj['Id'] = dt;
+        var jsonObject = {
+            "Inmueble": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("MostrarTelefono", "business")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                $('#BtnMostarTelefono').hide();
+                $('#TelefonoM').show();
+                $('#sTelefono').html(response.Telefono);
+                console.log(response.Telefono);
+            }
+        });
+    }
+
+    function JsLlamada(dt) {
+        var obj = {};
+        obj['IdInmueble'] = dt;
+        obj['NombreContacto'] = $('#ML_NombreContacto').val();
+        obj['Telefono'] = $('#ML_Telefono').val();
+        obj['Email'] = $('#ML_Email').val();
+
+
+        var jsonObject = {
+            "Correo": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("Llamada", "business")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                if (response.Respuesta) {
+                    swal({
+                        title: "Notificación. !",
+                        text: response.Contenido,
+                        icon: "success",
+                        button: "Aceptar",
+                    })
+                    .then((value) => {
+                        location.reload();
+                    });
+                }
+            }
+        });
+    }
+
+    function JsConsulta(dt) {
+        var obj = {};
+        obj['IdInmueble'] = dt;
+        obj['NombreContacto'] = $('#MC_NombreContacto').val();
+        obj['Telefono'] = $('#MC_Telefono').val();
+        obj['Email'] = $('#MC_Email').val();
+        obj['Mensaje'] = $('#MC_Mensaje').val();
+
+        var jsonObject = {
+            "Correo": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("Consulta", "business")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                if (response.Respuesta) {
+                    swal({
+                        title: "Notificación. !",
+                        text: response.Contenido,
+                        icon: "success",
+                        button: "Aceptar",
+                    })
+                    .then((value) => {
+                        location.reload();
+                    });
+                }
+            }
+        });
+    }
+
+    function JsAgendar(dt) {
+        var obj = {};
+        obj['IdInmueble'] = dt;
+        obj['NombreContacto'] = $('#MA_NombreContacto').val();
+        obj['Telefono'] = $('#MA_Telefono').val();
+        obj['Email'] = $('#MA_Email').val();
+
+        var jsonObject = {
+            "Correo": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("Agenda", "business")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                if (response.Respuesta) {
+                    swal({
+                        title: "Notificación. !",
+                        text: response.Contenido,
+                        icon: "success",
+                        button: "Aceptar",
+                    })
+                    .then((value) => {
+                        location.reload();
+                    });
+                }
+            }
+        });
+    }
+
+</script>

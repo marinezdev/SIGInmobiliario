@@ -1,0 +1,287 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="~/images/icons/ico.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Servicios inmobiliarios G</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!--     Fonts and icons     -->
+    @*<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+
+    <!-- CSS Files -->
+    <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/light-bootstrap-dashboard.css?v=2.0.1" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="~/assets/css/demo.css" rel="stylesheet" />
+
+    <link href="~/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" />
+    @*Bootstrap core CSS
+        <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+
+         Animation library for notifications
+        <link href="~/assets/css/animate.min.css" rel="stylesheet" />
+
+          Light Bootstrap Table core CSS
+        <link href="~/assets/css/light-bootstrap-dashboard.css" rel="stylesheet" />
+
+          CSS for Demo Purpose, don't include it in your project
+        <link href="~/assets/css/demo.css" rel="stylesheet" />
+
+
+             Fonts and icons
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+        <link href="~/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />*@
+
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="sidebar" data-color="blue" data-image="http://www.serviciosinmobiliariosg.com.mx/images/Headers/header1.jpg">
+
+            <!--
+
+                Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+                Tip 2: you can also add an image using data-image tag
+
+            -->
+
+            <div class="sidebar-wrapper">
+                <div class="logo text-center">
+                    <img src="~/images/icons/logoAdm.png" alt="SIG" width="120px" />
+                </div>
+
+                <ul class="nav">
+                    <li @*class="active"*@>
+                        <a href="@Url.Action("Index", "Administracion")">
+                            <i class="pe-7s-graph"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Pendientes", "Administracion")">
+                            <i class="pe-7s-bell"></i>
+                            <p>Pendientes</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Inmuebles", "Administracion")">
+                            <i class="pe-7s-culture"></i>
+                            <p>Inmuebles</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="@Url.Action("Usuarios", "Administracion")">
+                            <i class="pe-7s-users"></i>
+                            <p>Usuarios</p>
+                        </a>
+
+                    </li>
+                    @*<li class="active-pro">
+                        <a href="#">
+                            <i class="pe-7s-rocket"></i>
+                            <p>Configuración </p>
+                        </a>
+                    </li>*@
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="main-panel">
+            <nav class="navbar navbar-default navbar-fixed">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="@Url.Action("Index", "Administracion")">Dashboard</a>
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li>
+                                <a href="@Url.Action("Index", "Administracion")" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-dashboard"></i>
+                                    <p class="hidden-lg hidden-md">Dashboard</p>
+                                </a>
+                            </li>
+                            @*<li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret hidden-lg hidden-md"></b>
+                                    <p class="hidden-lg hidden-md">
+                                        5 Notifications
+                                        <b class="caret"></b>
+                                    </p>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Notification 1</a></li>
+                                    <li><a href="#">Notification 2</a></li>
+                                    <li><a href="#">Notification 3</a></li>
+                                    <li><a href="#">Notification 4</a></li>
+                                    <li><a href="#">Another notification</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-search"></i>
+                                    <p class="hidden-lg hidden-md">Search</p>
+                                </a>
+                            </li>*@
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            @*<li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <p>
+                                            Dropdown
+                                            <b class="caret"></b>
+                                        </p>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#">Action</a></li>
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something</a></li>
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a></li>
+                                    </ul>
+                                </li>*@
+                            <li>
+                                <a href="#" onclick="CerrarSesion();">
+                                    <p>Cerrar sesión </p>
+                                </a>
+                            </li>
+                            <li class="separator hidden-lg"></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+            @RenderBody()
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <nav class="pull-left">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    Home
+                                </a>
+                            </li>
+                            @*<li>
+                                    <a href="#">
+                                        Company
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Portfolio
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Blog
+                                    </a>
+                                </li>*@
+                        </ul>
+                    </nav>
+                    <p class="copyright pull-right">
+                        &copy;
+                        <script>document.write(new Date().getFullYear())</script> <a href="@Url.Action("Index", "Administracion")">Servicios inmobiliarios G</a>, Una extensión para su empresa
+                    </p>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+
+    <!--   Core JS Files   -->
+    <script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="~/vendor/chart.js/chart.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="~/assets/js/bootstrap-notify.js"></script>
+
+
+
+    <script src="~/assets/js/light-bootstrap-dashboard.js"></script>
+
+    <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
+    <script src="~/vendor/sweetalert/sweetalert.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        function CerrarSesion() {
+            swal({
+              title: "Confirmación de cierre de sesión",
+              text: "Deseas cerrar tu sesión dentro de SIG!",
+              icon: "warning",
+              buttons: true,
+                dangerMode: true,
+              buttons: ["Cancelar", "Aceptar"],
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: "@Url.Action("CerrarSesion", "Adm")",
+                        type: "POST",
+                        data: '',
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        error: function (response) {
+                            swal({
+                                title: "Algo ocurrió !",
+                                text: "Ha ocurrido un problema, inténtalo mas tarde ",
+                                icon: "warning",
+                                button: "Aceptar",
+                            });
+                        },
+                        success: function (response) {
+                            if (response.IdRol != 0) {
+                                swal({
+                                    title: "Sesión terminada !",
+                                    text: response.Nombre + " " + response.Apellidos + " regresa pronto !",
+                                    icon: "success",
+                                    button: "Aceptar",
+                                })
+                                .then((value) => {
+                                    window.location.href = "@Url.Action("Login", "Adm")";
+                                });
+                            }
+                        }
+                    });
+
+                } else {
+                swal("Tu sesión, se encuentra activa!");
+            }
+        });
+    }
+
+        $(document).ready( function () {
+            $('#TableListInmuebles').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"
+                },
+            });
+        });
+
+    </script>
+</body>
+</html>

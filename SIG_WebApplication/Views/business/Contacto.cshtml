@@ -1,0 +1,339 @@
+﻿
+@{
+    ViewBag.Title = "Contacto";
+    Layout = "~/Views/Shared/_LayoutBusiness.cshtml";
+}
+
+<style>
+    .contact-page-area .address-wrap .single-contact-address {
+        margin-bottom: 8px;
+    }
+
+        .contact-page-area .address-wrap .single-contact-address h5 {
+            font-weight: 600;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .contact-page-area .address-wrap .single-contact-address .lnr {
+            font-size: 20px;
+            font-weight: 500;
+            color: #0093df;
+            margin-right: 30px;
+        }
+
+    .lnr {
+        font-family: 'Linearicons-Free';
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    .contact-page-area .form-area input, .contact-page-area .form-area textarea {
+        border-radius: 0;
+        font-size: 13px !important;
+    }
+
+    .contact-page-area .form-area input {
+        padding: 15px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .contact-page-area .form-area textarea {
+        height: 160px;
+        margin-top: 0px;
+        padding: 15px;
+    }
+
+    .contact-page-area .form-area input, .contact-page-area .form-area textarea {
+        border-radius: 0;
+        font-size: 13px !important;
+    }
+</style>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<!-- Top content -->
+<div class="top-content">
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-sm-offset-2 text-center">
+                    <h1 style="padding:30px"><strong>¿Necesitas más información? Contáctanos</strong> </h1>
+                    <p>Estamos aquí para asistirte. Llámanos o escríbenos un email o contáctanos mediante nuestros canales sociales.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<section class="contact-page-area section-gap">
+    <div class="container">
+        <div class="row">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d941.1078250515895!2d-99.17918917051276!3d19.35046882657817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fff02154dd4b%3A0x235141d4ff4654b3!2sServicios%20Inmobiliarios%20G!5e0!3m2!1ses!2smx!4v1590554514315!5m2!1ses!2smx" width="100%" height="445" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+            <div class="col-lg-12 d-flex flex-column address-wrap">
+                <br>
+                <hr>
+                <br>
+            </div>
+
+            <div class="col-lg-4 d-flex flex-column address-wrap">
+                <div class="single-contact-address d-flex flex-row">
+                    <div class="icon">
+                        <span class="lnr lnr-home"></span>
+                    </div>
+                    <div class="contact-details">
+                        <h5>Dirección </h5>
+                        <p>
+                            A.V Universidad 1627, Col. Hacienda de Guadalupe Chimalistac
+                            Del. Álvaro Obregón, C.P. 01050, CDMX México.
+                        </p>
+                    </div>
+                </div>
+                <div class="single-contact-address d-flex flex-row">
+                    <div class="icon">
+                        <span class="lnr lnr-phone-handset"></span>
+                    </div>
+                    <div class="contact-details">
+                        <h5> 55 2909 7024 / 55 3566 4390</h5>
+                        <p>Un ejecutivo se pondrá en contacto contigo.</p>
+                    </div>
+                </div>
+                <div class="single-contact-address d-flex flex-row">
+                    <div class="icon">
+                        <span class="lnr lnr-envelope"></span>
+                    </div>
+                    <div class="contact-details">
+                        <h5 href="mailto:sig_contacto@serviciosinmobiliariosg.com">sig_contacto@serviciosinmobiliariosg.com</h5>
+                        <p>Envía un mensaje en cualquier momento!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <form class="form-area contact-form text-right" action="" method="post">
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <input name="name" id="nombre" placeholder="Nombre" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nombre'"
+                                   class="common-input mb-20 form-control" required="" onkeypress="return soloLetras(event)" type="text">
+                            <br />
+                            <input name="Email" id="Email" placeholder="Email" onKeyUp="Correo('email')" class="common-input mb-20 form-control" required="" type="email">
+                            <br />
+                            <input name="asunto" id="asunto" placeholder="Asunto" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter subject'"
+                                   class="common-input mb-20 form-control" required="" type="text">
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <textarea class="common-textarea form-control" name="mensaje" id="mensaje" placeholder="Mensaje" onfocus="this.placeholder = ''"
+                                      onblur="this.placeholder = 'Mensaje'" required=""></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="alert-msg"></div>
+                            <div class="g-recaptcha" data-sitekey="6Lcb4f4UAAAAAPCKMD3TDG-QD-C-2clZoox93S55"></div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div id='alertBoxes' class="text-center"></div><span class='timer' id='timer'></span>
+                            <br />
+                            <a class=" cl2 hov-cl1 trans-04 m-tb-5">
+                                <button type="button" id="EnviarMensaeje" class="flex-c-m cl0 size-125 bg3 bor2 hov-btn3 p-lr-15 trans-04">Enviar mensaje &nbsp; <i class="fa fa-share-square-o" aria-hidden="true"></i></button>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<br />
+<div class="bg6 flex-c-m flex-w size-302 ">
+    <span class="stext-107 cl6 p-lr-25">
+        <label id="m_TipoCategoriaS"></label>
+    </span>
+    <span class="stext-107 cl6 p-lr-25">
+    </span>
+</div>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="~/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script>
+    function soloLetras(e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toLowerCase();
+        letras = " áéíóúabcdefghijklmnñopqrstuvwxyz ";
+        especiales = [8, 37, 39, 46];
+
+        tecla_especial = false
+        for (var i in especiales) {
+            if (key == especiales[i]) {
+                tecla_especial = true;
+                break;
+            }
+        }
+        if (letras.indexOf(tecla) == -1 && !tecla_especial)
+            return false;
+    }
+</script>
+<script>
+    //$(document).ready(function () {
+    //    // NO PERMITE COPIAR
+    //    $('*').bind("cut copy paste", function (e) {
+    //        e.preventDefault();
+    //    });
+
+    //});
+
+    $(document).ready(function () {
+        var timeSlide = 1000;
+        $('#timer').hide(0);
+        $('#timer').css('display', 'none');
+        $('#EnviarMensaeje').click(function () {
+
+                $('.box-success,.box-error').slideUp(timeSlide);
+                    setTimeout(function () {
+                    if (validad() == "ok") {
+                        $('#timer').fadeOut(300);
+                        $('#alertBoxes').html('<div class="box-error"></div>');
+                        $('.box-error').hide(0).html("Enviado <img src='http://www.serviciosinmobiliariosg.com.mx/images/icons/ajax-loader.gif' width='20px' height='20px'/>");
+                        $('.box-error').slideDown(timeSlide);
+
+                        var arreglo = [];
+                        var obj = {};
+
+                        obj['nombre'] = $('#nombre').val();
+                        obj['email'] = $('#Email').val();
+                        obj['asunto'] = $('#asunto').val();
+                        obj['mensaje'] = $('#mensaje').val();
+                        obj['recaptcha'] = grecaptcha.getResponse();
+
+                        arreglo.push(obj);
+
+                        var jsonObject = {
+                            "Email": arreglo
+                        };
+
+                        console.log(jsonObject);
+
+                        $.ajax({
+                            url: "@Url.Action("LlamarJson", "Email")",
+                            type: "POST",
+                            data: JSON.stringify(jsonObject),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            error: function (response) {
+                                $('#timer').fadeOut(300);
+                                $('#alertBoxes').html('<div class="box-error"></div>');
+                                $('.box-error').hide(0).html('Ha ocurrido un error durante la ejecución');
+                                $('.box-error').slideDown(timeSlide);
+                                grecaptcha.reload();
+                                grecaptcha.reset();
+                            },
+                            success: function (response) {
+                                if (response == "ok") {
+                                    // grecaptcha.reload();
+                                    // grecaptcha.reset();
+
+                                    $('#alertBoxes').html('<div class="box-success"></div>');
+                                    $('.box-success').hide(0).html('Envío éxitoso.');
+                                    $('.box-success').slideDown(timeSlide);
+
+                                    window.setTimeout('location.reload()', 3000); //Reloads after three seconds
+
+                                    //window.location.reload(true);
+
+                                    //location.reload();
+
+                                } else {
+                                    $('#timer').fadeOut(300);
+                                    $('#alertBoxes').html('<div class="box-error"></div>');
+                                    $('.box-error').hide(0).html(response);
+                                    $('.box-error').slideDown(timeSlide);
+                                    grecaptcha.reload();
+                                    grecaptcha.reset();
+                                }
+                            }
+                        });
+                    }
+                else {
+
+                    $('#timer').fadeOut(300);
+                    $('#alertBoxes').html('<div class="box-error"></div>');
+                    $('.box-error').hide(0).html(validad());
+                    $('.box-error').slideDown(timeSlide);
+
+                    $.notify({
+	                    icon: 'fa fa-paw',
+	                    message: "Formulario incompleto ."
+                    },{
+                            type: 'danger',
+                        allow_dismiss: false,
+                        animate: {
+		                    enter: 'animated rollIn',
+		                    exit: 'animated rollOut'
+	                    }
+                    });
+                }
+            }, timeSlide);
+            return false;
+        });
+    });
+
+    function validad() {
+
+            var respuesta = "";
+            $('#nombre').css("border", "1px solid #64C0FF");
+            $('#Email').css("border", "1px solid #64C0FF");
+            $('#asunto').css("border", "1px solid #64C0FF");
+            $('#mensaje').css("border", "1px solid #64C0FF");
+
+            var response = grecaptcha.getResponse();
+
+            if ($('#nombre').val().length > 0) {
+                if ($('#Email').val().length > 0) {
+                    if ($('#asunto').val().length > 0) {
+                            if ($('#mensaje').val().length > 0) {
+                                if (Correo() == "ok") {
+                                    if (response.length == 0) {
+                                        respuesta = "Captcha no verificado";
+                                    } else {
+                                        respuesta = "ok";
+                                    }
+                                }else{
+                                    $('#Email').css("border", "1px solid red");
+                                    respuesta = "Coloca tu email correctamente";
+                                }
+                            }
+                            else {
+                                $('#mensaje').css("border", "1px solid red");
+                                respuesta = "Coloca tu mensaje";
+                            }
+
+                    }
+                    else {
+                        $('#asunto').css("border", "1px solid red");
+                        respuesta = "Coloca el asunto";
+                    }
+                } else {
+                    $('#Email').css("border", "1px solid red");
+                    respuesta = "Coloca tu email";
+                }
+            } else {
+                $('#nombre').css("border", "1px solid red");
+                respuesta = "Coloca tu nombre";
+            }
+            return respuesta;
+    };
+</script>
+<!-- End contact-page Area -->

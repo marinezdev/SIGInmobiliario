@@ -1,0 +1,810 @@
+﻿
+@{
+    ViewBag.Title = "Busqueda";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css" rel="stylesheet">
+<style>
+    .card {
+        position: relative;
+        font-family: 'Proxima Nova',-apple-system,'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 1.5px solid rgba(0,0,0,.125);
+        border-radius: .25rem;
+        -webkit-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.100);
+        -moz-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.100);
+        box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.100);
+    }
+
+    .card-title {
+        margin-bottom: .75rem;
+        font-family: 'Proxima Nova',-apple-system,'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .card-top-bar {
+        height: 6px;
+        background: #00d2ff;
+        background: -webkit-linear-gradient(to right, #3a7bd5, #00d2ff);
+        background: linear-gradient(to right, #3a7bd5, #00d2ff);
+    }
+
+    .btn {
+        display: inline-block;
+        font-weight: 400;
+        height: 40px;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        border: 1px solid transparent;
+        padding: .5rem .75rem;
+        font-size: 1rem;
+        line-height: 1.25;
+        border-radius: .25rem;
+        transition: all .15s ease-in-out;
+        font-family: 'Proxima Nova',-apple-system,'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;
+        border-color: #17a2b8;
+        background-color: #17a2b8;
+        color: #ffffff;
+    }
+
+        .btn:hover {
+            border-color: #17a2b8;
+            background-color: #f8f9fa;
+            color: #17a2b8;
+        }
+</style>
+<style>
+    #morecss-trigger-toggle {
+        cursor: pointer;
+    }
+
+    #morecss-element-toggle {
+        display: none;
+    }
+
+        #morecss-element-toggle:not(:checked) ~ #morecss-toggled-element {
+            display: none;
+        }
+
+        #morecss-element-toggle:not(:checked) ~ #morecss-trigger-toggle .lesslink {
+            display: none;
+        }
+
+        #morecss-element-toggle:checked ~ #morecss-abstract {
+            display: none;
+        }
+
+        #morecss-element-toggle:checked ~ #morecss-trigger-toggle .morelink {
+            display: none;
+        }
+
+    #morecss .morelink, #morecss .lesslink {
+        display: block;
+        cursor: pointer;
+        color: #2196f3;
+    }
+
+        #morecss .morelink:hover, #morecss .lesslink:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<br />
+<br />
+<!-- Shoping Cart -->
+
+<div class="container bg0 p-t-75 p-b-85">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card" style="width: 100%;">
+                <div class="card-body">
+                    <p class="card-text" style="font-style: oblique;">Al realizar algún movimiento, se iniciará la búsqueda  </p>
+                    <br>
+                    <div class="text-right">
+                        <button class="btn my-2 my-sm-0 col-md-12" onclick="LimpiarFiltros()"><i class="fa fa-repeat" aria-hidden="true"></i> Limpiar filtros </button>
+                    </div>
+                    <br />
+                    <hr />
+                    <h5 class="card-title"> Ubicación </h5>
+
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div id="DivSuperficie" class="bor8 bg0 m-b-5 m-t-5 col-md-10">
+                            <input list="brow" class="stext-111 size-116 p-l-15" id="DirecionesBusqueda" placeholder="Dirección  ">
+                        </div>
+                        <button class="btn my-2 my-sm-0 col-md-2" data-toggle="modal" data-target="#ModalLlamada" style="height: 50px;"> + </button>
+                    </nav>
+
+
+                    <hr />
+                    <h5 class="card-title">Tipo de operación</h5>
+                    @{
+                        foreach (var dt in ViewBag.subCategorias)
+                        {
+                            <div class="radio icheck-info">
+                                <input type="radio" id="primary_@dt.Id" value="@dt.Id" name="primaryTOP" onchange="BusquedaParametros()" />
+                                <label for="primary_@dt.Id">@dt.Nombre</label>
+                            </div>
+                        }
+                    }
+
+                    <hr />
+                    <h5 class="card-title">Tipo de inmueble</h5>
+                    <div id="morecss">
+                        @{
+                            foreach (var dt in ViewBag.tipoSubCategorias)
+                            {
+                                <div class="radio icheck-info">
+                                    <input type="radio" id="second_@dt.Nombre" value="@dt.Nombre" name="secondTI" onchange="BusquedaParametros()" />
+                                    <label for="second_@dt.Nombre">@dt.Nombre</label>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <hr />
+                    <h5 class="card-title">Baños</h5>
+                    <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-9 m-t-9 col-md-12">
+                        <select class="js-select2" name="time" id="WC">
+                            <option value=""> </option>
+                            <option value="1">1+</option>
+                            <option value="2">2+</option>
+                            <option value="3">3+</option>
+                            <option value="4">4+</option>
+                            <option value="5">5+</option>
+                        </select>
+                        <div class="dropDownSelect2"></div>
+                    </div>
+                    <div class="text-right">
+                        <button class="btn my-2 my-sm-0 col-md-3" onclick="BusquedaParametros()"><i class="fa fa-repeat" aria-hidden="true"></i> </button>
+                    </div>
+                    <hr />
+                    <h5 class="card-title">Estacionamientos</h5>
+                    <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-9 m-t-9 col-md-12">
+                        <select class="js-select2" name="time" id="Estacionamientos">
+                            <option value=""> </option>
+                            <option value="1">1+</option>
+                            <option value="2">2+</option>
+                            <option value="3">3+</option>
+                            <option value="4">4+</option>
+                            <option value="5">5+</option>
+                        </select>
+                        <div class="dropDownSelect2"></div>
+                    </div>
+                    <div class="text-right">
+                        <button class="btn my-2 my-sm-0 col-md-3" onclick="BusquedaParametros()"><i class="fa fa-repeat" aria-hidden="true"></i> </button>
+                    </div>
+                    <hr />
+                    @*<h5 class="card-title">Superficie</h5>*@
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            @if (ViewBag.Total == 0)
+            {
+                <div class="row">
+                    <div class="col-sm-12 col-sm-offset-2 text-center">
+                        <hr />
+                        <br />
+
+                        <h1 style="color:#17a2b8"><strong>¡Uuups!</strong> </h1>
+                        <h5 style="padding:30px; "><strong>En este momento no hay inmuebles como el que buscas.</strong> </h5>
+                        <h1 style="padding:3px; font-size:100px"><strong><i class="fa fa-search-minus" aria-hidden="true"></i></strong> </h1>
+                        <div class="description">
+                            <p>
+
+                                ¿Y si pruebas limpiando los filtros para encontrar más opciones?
+                                <br />
+
+                                <br />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p class="card-text" style="text-align:right"> @ViewBag.TotalText </p>
+            }
+
+            <br />
+            @{
+                foreach (var dt in ViewBag.Inmuebles)
+                {
+                    <div class="card mb-3" style="max-width: 100%;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img src="@dt.Imagen" class="card-img" />
+                                @if (dt.NombreEstatus == "Vendido")
+                                {
+                                    <img class='img15' style='position: absolute; top: 0; right: 0;  width:100%;' src='http://www.serviciosinmobiliariosg.com.mx/images/icons/vendida.png' />
+                                }else if (dt.NombreEstatus == "Rentado")
+                                {
+                                    <img class='img15' style='position: absolute; top: 0; right: 0;  width:100%;' src='http://www.serviciosinmobiliariosg.com.mx/images/icons/unnamed.png' />
+                                }
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">@dt.Titulo</h5>
+                                    <p class="card-text" style="font-style: oblique;">@dt.SubCategoria - @dt.TipoCategoria</p>
+                                    <p class="card-text">@dt.Descripcion</p>
+                                    <p class="card-text"><small class="text-muted">@dt.Estado, @dt.Poblacion </small></p>
+                                    <p class="card-text"><small class="text-muted">@dt.Tiempo</small></p>
+                                    <div class="text-right">
+                                        <button class="btn my-2 my-sm-0 col-md-3" onclick="VistaRapida(@dt.Id)"><i class="fa fa-share" aria-hidden="true"></i> Mostrar </button>
+                                    </div>
+                                    <div class='product-btns'>
+                                        <button class='add-to-wishlist' tabindex='0' onclick='AgregarInteres(@dt.Id)'><i class='fa fa-heart-o'></i><span class='tooltipp'>Añadir interes</span></button>
+                                        <button class='add-to-compare' tabindex='0' onclick='AgregarComparar(@dt.Id)'><i class='fa fa-exchange'></i><span class='tooltipp'>Añadir comparar</span></button>
+                                        <button class='quick-view js-show-modal1' tabindex='0' onclick="VistaRapida(@dt.Id)"><i class='fa fa-eye'></i><span class='tooltipp'>Mostrar</span></button>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (dt.NombreEstatus == "Desactivado por usuario")
+                            {
+                                <div class="col-md-12 card-top-bar-DU">
+
+                                </div>
+                            }
+                            else if (dt.NombreEstatus == "Revisión")
+                            {
+                                <div class="col-md-12 card-top-bar-RE">
+
+                                </div>
+                            }
+                            else if (dt.NombreEstatus == "Rentado")
+                            {
+                                <div class="col-md-12 card-top-bar-Renta">
+
+                                </div>
+                            }
+                            else if (dt.NombreEstatus == "Vendido")
+                            {
+                                <div class="col-md-12 card-top-bar-Vendido">
+
+                                </div>
+                            }
+                            else if (dt.NombreEstatus == "Rechazo por administración")
+                            {
+                                <div class="col-md-12 card-top-bar-RADM">
+
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-12 card-top-bar">
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                }
+            }
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div class="bg6 flex-c-m flex-w size-302 ">
+    <span class="stext-107 cl6 p-lr-25">
+        <label id="m_TipoCategoriaS"></label>
+    </span>
+    <span class="stext-107 cl6 p-lr-25">
+    </span>
+</div>
+<!-- MODALS QUIERO QUE ME LLAMEN --->
+<div class="modal fade" id="ModalLlamada" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center Header-Modal">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Buscar por dirección</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @*<div class="row">
+                        <div class="col-md-12 text-center">
+                            <p>Agiliza tu búsqueda, coloca el código postal </p>
+                        </div>
+                        <nav class="navbar navbar-expand-lg navbar-light">
+                            <div class="bor8 bg0 m-b-5 m-t-5 col-md-5">
+                                <input  type="text" class="stext-111 size-116 p-l-15" id="ML_CP" placeholder="CP  ">
+                            </div>
+                            <button class="btn my-2 my-sm-0 col-md-2" style="height: 50px;" onclick="BuscarDireccionCP()"> <i class="fa fa-search-plus" aria-hidden="true"></i> </button>
+                        </nav>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <hr />
+                        </div>
+                    </div>*@
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Estados</label>
+                        <div id="DivCatEstados" class="rs1-select2 rs2-select2 bor8 bg0 m-b-5 m-t-5 col-md-12">
+                            @Html.DropDownList("CatEstados", new SelectList(ViewBag.CatEstados, "ID", "Estado"), htmlAttributes: new { @class = "js-select2", @onchange = "callEstados(this.value)" })
+                            <div class="dropDownSelect2"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="DivEstados" style="display:none;">
+                            <label>Delegación / municipio </label>
+                            <div id="DivIdmunicipio" class="rs1-select2 rs2-select2 bor8 bg0 m-b-5 m-t-5 col-md-12">
+                                <select id="Idmunicipio" class="js-select2" name="time" onchange="callColoniasCodigoPostal(this.value)">
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="DivColonias" style="display:none;">
+                            <label>Colonia</label>
+                            <div id="DivIdColonias" class="rs1-select2 rs2-select2 bor8 bg0 m-b-9 m-t-9 col-md-12">
+                                <select id="IdColonias" class="js-select2" name="time">
+                                </select>
+                                <div class="dropDownSelect2"></div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="col-md-6">
+                            <div id="DivCodigoPostal" style="display:none;">
+                                <label>Código postal </label>
+                                <div id="DivIdCodigoPostal" class="rs1-select2 rs2-select2 bor8 bg0 m-b-9 m-t-9 col-md-12">
+                                    <select id="IdCodigoPostal" class="js-select2" name="time" onchange="callColonias(this.value)">
+                                    </select>
+                                    <div class="dropDownSelect2"></div>
+                                </div>
+                            </div>
+                        </div>*@
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <button type="button" class="btn-header-modal col-md-12" onclick="BuscarDireccion()">&nbsp;&nbsp;&nbsp; Buscar &nbsp;&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    function BuscarDireccion() {
+        BusquedaParametros();
+    }
+
+    function BuscarDireccionCP() {
+        var valor = $('#ML_CP').val();
+        var obj = {};
+        obj['CP'] = valor;
+        var jsonObject = {
+            "cat_cp": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("ConsultaDireccion", "Home")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                if (response.Id == 0) {
+                    swal({
+                        title: "Algo ocurrió !",
+                        text: "Código postal no encontrado.",
+                        icon: "warning",
+                        button: "Aceptar",
+                    });
+                } else {
+
+                    $("#CatEstados > option[value='"+response.IdEstado+"']").attr("selected", true);
+                    $("#select2-CatEstados-container").text(response.Estado);
+
+                    $("#CatEstados").change();
+                    console.log(response);
+
+                    //alert(response.IdPoblacion);
+                    $("#Idmunicipio > option[value='"+response.IdPoblacion+"']").attr("selected", true);
+
+                    //$("#Idmunicipio > option[value='"+response.IdPoblacion+"']").attr("selected", true);
+                    //$("#select2-Idmunicipio-results").text(response.Poblaciones);
+
+                    //$("#Idmunicipio").change();
+                }
+
+            }
+        });
+    }
+
+    function callColonias(valor) {
+        $("#DivColonias").css("display", "none");
+        $("#IdColonias").empty();
+        var obj = {};
+        obj['IdCP'] = valor;
+        var jsonObject = {
+            "cat_Colonias": obj
+        };
+        $.ajax({
+            url: "@Url.Action("CargaColonias", "PublicarAnuncio")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (resultado) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (resultado) {
+                $("#DivColonias").css("display", "block");
+
+                 //var datos = $.parseJSON(msg.d);
+
+                $(resultado).each(function () {
+                    var option = $(document.createElement('option'));
+
+                    option.text(this.Colonia);
+                    option.val(this.Id);
+
+                    $("#IdColonias").append(option);
+                });
+            }
+
+        });
+    }
+
+    function callColoniasCodigoPostal(valor)
+    {
+        $("#DivCodigoPostal").css("display", "none");
+        $("#IdCodigoPostal").empty();
+
+        $("#DivColonias").css("display", "none");
+        $("#IdColonias").empty();
+
+        var obj = {};
+        obj['Id'] = valor;
+        var jsonObject = {
+            "cat_colonias": obj
+
+        };
+        $.ajax({
+            url: "@Url.Action("ConsultaListadoColonias", "Home")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (resultado) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (resultado) {
+                $("#DivColonias").css("display", "block");
+                $("#DivCodigoPostal").css("display", "block");
+                 //var datos = $.parseJSON(msg.d);
+
+                $(resultado).each(function () {
+                    var option = $(document.createElement('option'));
+
+                    option.text(this.Colonia);
+                    option.val(this.Id);
+
+                    $("#IdColonias").append(option);
+
+                });
+
+                if (@ViewBag.IdColonia > 0) {
+                    $("#IdColonias > option[value='@ViewBag.IdColonia']").attr("selected", true);
+                    $("#select2-IdColonias-container").text('@ViewBag.Colonia');
+                }
+            }
+        });
+    }
+
+    function callCodigoPostal(valor) {
+        $("#DivCodigoPostal").css("display", "none");
+        $("#IdCodigoPostal").empty();
+        var obj = {};
+        obj['IdPoblacion'] = valor;
+        var jsonObject = {
+            "cat_cp": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("CargaPostales", "PublicarAnuncio")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (resultado) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (resultado) {
+                $("#DivCodigoPostal").css("display", "block");
+
+                 //var datos = $.parseJSON(msg.d);
+
+                $(resultado).each(function () {
+                    var option = $(document.createElement('option'));
+
+                    option.text(this.CP);
+                    option.val(this.Id);
+
+                    $("#IdCodigoPostal").append(option);
+
+                });
+                 $("#IdCodigoPostal" ).change();
+            }
+        });
+    }
+
+    function callEstados(valor) {
+        $("#DivEstados").css("display", "none");
+        $("#Idmunicipio").empty();
+
+        var obj = {};
+        obj['IdEstado'] = valor;
+        var jsonObject = {
+            "cat_Poblaciones": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("CargaPoblaciones", "PublicarAnuncio")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (resultado) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (resultado) {
+                $("#DivEstados").css("display", "block");
+
+                 //var datos = $.parseJSON(msg.d);
+
+                $(resultado).each(function () {
+                    var option = $(document.createElement('option'));
+
+                    option.text(this.Poblacion);
+                    option.val(this.Id);
+
+                    $("#Idmunicipio").append(option);
+                });
+
+                if (@ViewBag.IdEstado > 0)
+                {
+
+                    $("#Idmunicipio > option[value='@ViewBag.IdPoblacion']").attr("selected", true);
+                    $("#select2-Idmunicipio-results").text('@Html.Raw(@ViewBag.Poblacion)');
+
+                    $("#Idmunicipio").change();
+                }
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        jQuery("#primary_@ViewBag.TipoOperacion").attr('checked', true);
+        jQuery("#second_@ViewBag.TipoSubCategoria").attr('checked', true);
+
+        $("#Estacionamientos > option[value='@ViewBag.Estacionamientos']").attr("selected", true);
+        $("#select2-Estacionamientos-container").text('@ViewBag.Estacionamientos+');
+
+        $("#WC > option[value='@ViewBag.WC']").attr("selected", true);
+        $("#select2-WC-container").text('@ViewBag.WC+');
+
+        $("#CatEstados > option[value='@ViewBag.IdEstado']").attr("selected", true);
+        $("#select2-CatEstados-container").text('@ViewBag.Estado');
+
+        if (@ViewBag.IdEstado > 0)
+        {
+            $("#CatEstados").change();
+
+            
+        }
+        
+
+    });
+
+    function BusquedaParametros() {
+        // DATOS
+        // var ti = getParameterByName('ti');
+        //var ti = $('input:radio[name=secondTI]:checked').val();
+        var tiop = $('input:radio[name=primaryTOP]:checked').val();
+        var wc = $('#WC').val();
+        var Esta = $('#Estacionamientos').val();
+
+        /*********************** */
+        var CEstado = "";
+        var CMunicipio = "";
+        var CColonias = "";
+
+        if ($('#CatEstados').val() > 0) {
+            CEstado = $('#CatEstados').val();
+
+            if ($('#Idmunicipio').val() > 0) {
+                CMunicipio = $('#Idmunicipio').val();
+
+                if ($('#IdColonias').val() > 0) {
+                    CColonias = $('#IdColonias').val();
+                }
+            }
+
+
+        }
+
+        var ti = "";
+
+        var obj = {};
+        obj['TipoSubCategoria'] = $('input:radio[name=secondTI]:checked').val();
+        var jsonObject = {
+            "Busquedas": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("BusquedasContultaId", "Home")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                //alert(CEstado);
+                if (CEstado > 0) {
+                    window.location.href = '@Url.Action("Busqueda","Home")?ti='+ response +'&tiop=' + tiop +'&wc=' + wc + '&Esta=' + Esta + "&catEstado=" + CEstado + "&catPoblacion=" + CMunicipio + "&catColonia="+CColonias;
+                } else {
+                    window.location.href = '@Url.Action("Busqueda","Home")?ti='+ response +'&tiop=' + tiop +'&wc=' + wc + '&Esta=' + Esta + "&catEstado=" + CEstado + "&catPoblacion=" + CMunicipio + "&catColonia="+CColonias;
+                }
+                
+            }
+        });
+    }
+
+    function LimpiarFiltros() {
+         window.location.href = '@Url.Action("Busqueda","Home")';
+    }
+
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    function VistaRapida(inmueble) {
+        var obj = {};
+        obj['Id'] = inmueble;
+        var jsonObject = {
+            "Inmueble": obj
+        };
+
+         $.ajax({
+            url: "@Url.Action("InmuebleContultaId", "Home")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                console.log(response);
+                window.location.href = '@Url.Action("InmuebleDetalle", "Home")?Inm=' + response + ' ';
+            }
+        });
+    }
+
+    function AgregarInteres(inmueble)
+    {
+        var obj = {};
+        obj['IdInmueble'] = inmueble;
+        var jsonObject = {
+            "Interes": obj
+        };
+
+        $.ajax({
+            url: "@Url.Action("AgregarInteres", "Interes")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                if (response.Respuesta) {
+                    swal({
+                        title: "Agregado a mi interés !",
+                        text: response.RespuestaText,
+                        icon: "success",
+                        button: "Aceptar",
+                    });
+
+                    $('#BtIconsnInteres').attr('data-notify', response.Contenido);
+                    $('#BtIconsnInteres2').attr('data-notify', response.Contenido);
+                }
+                else {
+                    swal({
+                        title: "Algo ocurrió !",
+                        text: response.RespuestaText,
+                        icon: "warning",
+                        button: "Aceptar",
+                    });
+                }
+            }
+        });
+    }
+
+    function AgregarComparar(inmueble)
+    {
+        var obj = {};
+        obj['IdInmueble'] = inmueble;
+        var jsonObject = {
+            "Comparar": obj
+        };
+
+        console.log(obj);
+
+        $.ajax({
+            url: "@Url.Action("AgregarComparar", "Comparar")",
+            type: "POST",
+            data: JSON.stringify(jsonObject),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            error: function (response) {
+                alert("MANDAR MENSAJE SE ERROR");
+            },
+            success: function (response) {
+                if (response.Respuesta) {
+                    swal({
+                        title: "Agregado a Comparar !",
+                        text: response.RespuestaText,
+                        icon: "success",
+                        button: "Aceptar",
+                    });
+
+                    $('#BtIconsnComparar').attr('data-notify', response.Contenido);
+                    $('#BtIconsnComparar2').attr('data-notify', response.Contenido);
+                }
+                else {
+                    swal({
+                        title: "Algo ocurrió !",
+                        text: response.RespuestaText,
+                        icon: "warning",
+                        button: "Aceptar",
+                    });
+                }
+            }
+        });
+    }
+</script>
+@*<script>
+        $(document).ready(function () {
+            var showChar = 300;
+            var content = $('#morecss').html();
+            if (content.length > showChar) {
+                var c = content.substr(0, showChar);
+                var html = '<input id="morecss-element-toggle" type="checkbox" /><div id="morecss-abstract">' + c + '...' + '</div>' + '<div id="morecss-toggled-element">' + content + '</div>' + '<label for="morecss-element-toggle" id="morecss-trigger-toggle"><span class="morelink">Seguir leyendo ></span><span class="lesslink">Mostrar menos</span></label>';
+                $('#morecss').html(html);
+            }
+        });
+    </script>*@
